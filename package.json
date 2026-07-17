@@ -1,0 +1,29 @@
+{
+  "name": "android-log-viewer",
+  "version": "0.1.0",
+  "description": "浏览器里查看 Android 设备 logcat 日志：本地起一个 server，通过 adb 拉取日志，网页端实时展示、过滤、搜索。",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "android-log-viewer": "./bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "server/index.js",
+    "server/adb.js",
+    "client/dist",
+    "install-adb.sh",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node bin/cli.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  }
+}
