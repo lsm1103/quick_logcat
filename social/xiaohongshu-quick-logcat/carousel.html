@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>quick-logcat 小红书图文</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #f5f1e9; font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+    .slide { display: none; width: 1080px; height: 1440px; position: relative; overflow: hidden; padding: 88px 76px; background: #f7f4ed; color: #16191d; }
+    .slide.active { display: block; }
+    .eyebrow { font: 600 25px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; color: #00a7ca; letter-spacing: 2px; }
+    .page { position: absolute; right: 78px; top: 91px; font: 500 25px/1 ui-monospace, monospace; color: #70777d; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 86px; line-height: 1.12; letter-spacing: -3px; }
+    h2 { font-size: 64px; line-height: 1.18; letter-spacing: -2px; }
+    .lead { margin-top: 30px; font-size: 33px; line-height: 1.55; color: #4d565f; }
+    .accent { color: #00a7ca; }
+    .lime { color: #91b80d; }
+    .rule { height: 3px; width: 90px; margin: 38px 0; background: #00a7ca; }
+    .code { display: inline-block; padding: 20px 26px; margin-top: 36px; border-radius: 16px; background: #15191e; color: #d5ee4f; font: 600 35px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; box-shadow: 0 14px 30px rgba(12, 20, 29, .18); }
+    .small { font-size: 28px; line-height: 1.55; color: #697078; }
+    .card { border-radius: 28px; background: #fff; border: 1px solid #e7e0d4; box-shadow: 0 20px 55px rgba(25, 33, 40, .08); }
+    .cover { background: linear-gradient(135deg, #f7f4ed 0%, #f8f5ee 55%, #edf5ee 100%); }
+    .cover .hero { position: absolute; left: 30px; right: 30px; bottom: -10px; width: 1020px; opacity: .98; }
+    .cover .cover-copy { position: relative; z-index: 2; width: 760px; }
+    .cover .tag { display: inline-block; margin-top: 35px; padding: 13px 18px; border-radius: 999px; background: #d8ecf0; color: #0c7896; font-size: 25px; font-weight: 650; }
+    .old-flow { margin-top: 70px; padding: 34px; }
+    .step { display: flex; align-items: center; gap: 22px; padding: 25px 0; border-bottom: 1px solid #ece7df; font-size: 39px; font-weight: 650; }
+    .step:last-child { border-bottom: 0; }
+    .dot { flex: 0 0 auto; width: 38px; height: 38px; border-radius: 50%; background: #171b20; color: #fff; text-align: center; font: 600 23px/38px ui-monospace, monospace; }
+    .step:last-child .dot { background: #91b80d; }
+    .mock { position: absolute; left: 76px; right: 76px; bottom: 96px; overflow: hidden; }
+    .mock img { display: block; width: 100%; max-height: 510px; object-fit: cover; object-position: center; }
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 62px; }
+    .feature { min-height: 205px; padding: 27px; }
+    .feature b { display: block; margin-bottom: 14px; font-size: 34px; }
+    .feature span { display: block; color: #626a72; font-size: 25px; line-height: 1.45; }
+    .number { color: #00a7ca; font: 700 65px/1 ui-monospace, monospace; }
+    .compare { margin-top: 65px; overflow: hidden; }
+    .compare-row { display: grid; grid-template-columns: 1.1fr 1fr; }
+    .compare-row > div { min-height: 122px; padding: 27px 25px; border-bottom: 1px solid #e7e0d4; font-size: 30px; line-height: 1.35; }
+    .compare-row > div:first-child { background: #edf6f7; font-weight: 700; }
+    .compare-row:last-child > div { border-bottom: 0; }
+    .install { position: absolute; left: 76px; right: 76px; bottom: 84px; padding: 44px; background: #171b20; color: #fff; }
+    .install .code { margin: 18px 0 0; padding: 0; background: none; box-shadow: none; font-size: 38px; }
+    .footer { position: absolute; left: 76px; bottom: 42px; color: #878d92; font-size: 22px; }
+  </style>
+</head>
+<body>
+  <section class="slide cover" data-slide="1">
+    <div class="cover-copy">
+      <div class="eyebrow">QUICK LOGCAT</div>
+      <div class="rule"></div>
+      <h1>只看日志，<br>别开 <span class="accent">Android Studio</span></h1>
+      <p class="lead">一个在浏览器里查看 Android Logcat 的本地小工具。</p>
+      <div class="tag">给只想快速看日志的人</div>
+    </div>
+    <img class="hero" src="hero-illustration.png" alt="手机连接浏览器日志窗口的插图">
+    <div class="footer">01 / 06</div>
+  </section>
+
+  <section class="slide" data-slide="2">
+    <div class="eyebrow">THE OLD FLOW</div><div class="page">02 / 06</div>
+    <div class="rule"></div>
+    <h2>只是想看一行错误日志，<br>却先打开整个 IDE？</h2>
+    <p class="lead">真正的需求很小，打开与切换的成本却不小。</p>
+    <div class="card old-flow">
+      <div class="step"><span class="dot">1</span>启动 Android Studio</div>
+      <div class="step"><span class="dot">2</span>找到 Logcat 面板</div>
+      <div class="step"><span class="dot">3</span>连接设备、筛选日志</div>
+      <div class="step"><span class="dot">4</span>终于看到那一行报错</div>
+    </div>
+    <div class="mock card"><img src="../../docs/images/image-1.png" alt="quick-logcat 实际筛选日志界面"></div>
+  </section>
+
+  <section class="slide" data-slide="3">
+    <div class="eyebrow">ONE COMMAND</div><div class="page">03 / 06</div>
+    <div class="rule"></div>
+    <h2>不用装 IDE 插件。<br>一条命令就够。</h2>
+    <div class="code">npx quick-logcat</div>
+    <p class="lead">本地启动一个 Node 服务，自动打开浏览器；日志仍然通过你本机的 <span class="accent">adb</span> 获取。</p>
+    <div class="mock card"><img src="../../docs/images/image.png" alt="quick-logcat 连接设备后的真实界面"></div>
+  </section>
+
+  <section class="slide" data-slide="4">
+    <div class="eyebrow">WHAT IT DOES</div><div class="page">04 / 06</div>
+    <div class="rule"></div>
+    <h2>不是“打印日志”。<br>是把日志先变得可看。</h2>
+    <div class="feature-grid">
+      <div class="card feature"><b><span class="number">01</span> 设备选择</b><span>真机与模拟器，随时切换。</span></div>
+      <div class="card feature"><b><span class="number">02</span> 实时输出</b><span>连接后持续接收 Logcat。</span></div>
+      <div class="card feature"><b><span class="number">03</span> 精准过滤</b><span>关键字、Tag、包名、级别。</span></div>
+      <div class="card feature"><b><span class="number">04</span> 临时排查</b><span>暂停、清空、导出、自动重连。</span></div>
+    </div>
+  </section>
+
+  <section class="slide" data-slide="5">
+    <div class="eyebrow">BOUNDARY</div><div class="page">05 / 06</div>
+    <div class="rule"></div>
+    <h2>它不替代<br><span class="accent">Android Studio。</span></h2>
+    <p class="lead">该用 IDE 的时候，还是用 IDE；这个工具只解决“快速看日志”。</p>
+    <div class="card compare">
+      <div class="compare-row"><div>需要做什么？</div><div>更合适的工具</div></div>
+      <div class="compare-row"><div>编译、断点、Profiler</div><div>Android Studio</div></div>
+      <div class="compare-row"><div>临时联调、真机排错</div><div><span class="lime">quick-logcat</span></div></div>
+      <div class="compare-row"><div>只想看一行 Logcat</div><div><span class="lime">quick-logcat</span></div></div>
+    </div>
+  </section>
+
+  <section class="slide" data-slide="6">
+    <div class="eyebrow">TRY IT</div><div class="page">06 / 06</div>
+    <div class="rule"></div>
+    <h2>如果你也常常<br>“只想看日志”</h2>
+    <p class="lead">复制这条命令试一下。项目已发布到 npm。</p>
+    <div class="install card">
+      <div class="small" style="color:#abb5bc">TERMINAL</div>
+      <div class="code">npx quick-logcat</div>
+    </div>
+    <p class="small" style="position:absolute;left:76px;right:76px;bottom:400px">前提：Node.js 18+ 与 adb。<br>macOS / Linux 找不到 adb 时会提示安装。</p>
+    <div class="footer">GitHub：lsm1103/quick_logcat</div>
+  </section>
+  <script>
+    const requested = new URLSearchParams(location.search).get('slide') || '1';
+    document.querySelector(`[data-slide="${requested}"]`).classList.add('active');
+  </script>
+</body>
+</html>
