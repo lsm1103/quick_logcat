@@ -3,7 +3,7 @@ import { spawn, spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { platform } from 'node:os';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
@@ -67,4 +67,6 @@ console.log('  Ctrl+C 停止服务');
 console.log('========================================');
 
 waitForServerThenOpen();
-await import(path.join(ROOT, 'server/index.js'));
+// ESM 的动态 import 在 Windows 下不能直接接收 `C:\\...` 形式的路径，
+// 必须先转换为标准的 file:// URL。
+await import(pathToFileURL(path.join(ROOT, 'server/index.js')).href);
