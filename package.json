@@ -4,6 +4,22 @@
   "description": "浏览器里看 Android logcat 的轻量工具，替代 Android Studio 自带的 Logcat 面板——不用为了看日志打开整个 IDE，省内存省磁盘。",
   "type": "module",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsm1103/quick_logcat.git"
+  },
+  "homepage": "https://github.com/lsm1103/quick_logcat#readme",
+  "bugs": {
+    "url": "https://github.com/lsm1103/quick_logcat/issues"
+  },
+  "keywords": [
+    "android",
+    "logcat",
+    "adb",
+    "log",
+    "viewer",
+    "debug"
+  ],
   "bin": {
     "quick-logcat": "./bin/cli.js"
   },
