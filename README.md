@@ -2,6 +2,11 @@
 
 浏览器里看 Android logcat 日志的轻量工具，用来替代 Android Studio 自带的 Logcat 面板——不用为了看几行日志打开整个 IDE，省内存、省磁盘、开得快。本地起一个 Node server，通过 adb 拉取日志，网页端实时展示、过滤、搜索。
 
+## 真实工具使用图
+![连上设备init](docs/images/image.png)
+
+![筛选日志](docs/images/image-1.png)
+
 ## 运行
 
 ### 方式一：npx（推荐）
