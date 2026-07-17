@@ -1,6 +1,6 @@
 {
   "name": "quick-logcat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "浏览器里看 Android logcat 的轻量工具，替代 Android Studio 自带的 Logcat 面板——不用为了看日志打开整个 IDE，省内存省磁盘。",
   "type": "module",
   "license": "MIT",
