@@ -1,13 +1,13 @@
-# Android Log Viewer
+# Quick Logcat
 
-浏览器里查看 Android 设备 logcat 日志的小工具。本地起一个 Node server，通过 adb 拉取日志，网页端实时展示、过滤、搜索。
+浏览器里看 Android logcat 日志的轻量工具，用来替代 Android Studio 自带的 Logcat 面板——不用为了看几行日志打开整个 IDE，省内存、省磁盘、开得快。本地起一个 Node server，通过 adb 拉取日志，网页端实时展示、过滤、搜索。
 
 ## 运行
 
 ### 方式一：npx（推荐）
 
 ```bash
-npx android-log-viewer
+npx quick-logcat
 ```
 
 需要本机已装 Node.js ≥ 18（用你系统自己的 Node，这个包本身不到 60KB，不再打包任何运行时）。首次运行会自动打开浏览器，再次运行如果已经在跑就直接复用、打开浏览器。
@@ -37,12 +37,12 @@ server 启动时会自动检测 adb：
 如果你想手动指定 adb 路径，设置环境变量 `ADB_PATH` 即可覆盖以上探测逻辑，例如：
 
 ```bash
-ADB_PATH=/path/to/adb npx android-log-viewer
+ADB_PATH=/path/to/adb npx quick-logcat
 ```
 
 ## 没有安装 adb？
 
-不管走 `npx android-log-viewer` 还是 `start.command` / `start.sh`，macOS / Linux 下启动时都会自动调用 [`install-adb.sh`](install-adb.sh) 做检测：找配置好的位置 → PATH → 常见 SDK 默认目录，都找不到就会在终端里询问是否现在从 Google 官方地址自动下载安装（装到默认 SDK 目录，无需手动配置 PATH）。Windows 下这个脚本跑不了，会走下面的手动 / AI 安装步骤。也可以单独手动跑：
+不管走 `npx quick-logcat` 还是 `start.command` / `start.sh`，macOS / Linux 下启动时都会自动调用 [`install-adb.sh`](install-adb.sh) 做检测：找配置好的位置 → PATH → 常见 SDK 默认目录，都找不到就会在终端里询问是否现在从 Google 官方地址自动下载安装（装到默认 SDK 目录，无需手动配置 PATH）。Windows 下这个脚本跑不了，会走下面的手动 / AI 安装步骤。也可以单独手动跑：
 
 ```bash
 ./install-adb.sh
@@ -55,7 +55,7 @@ ADB_PATH=/path/to/adb npx android-log-viewer
 如果你在用 Claude Code / Cursor 之类有终端权限的 AI 编程工具，可以直接把下面这段提示词发给它，让它帮你端到端地检测、下载、安装 adb（macOS / Linux 优先用仓库自带的 `install-adb.sh`，跑不了的场景再走手动步骤）：
 
 ```
-请帮我检测并安装 Android Debug Bridge (adb)，用于运行 android-log-viewer 这个工具：
+请帮我检测并安装 Android Debug Bridge (adb)，用于运行 quick-logcat 这个工具：
 
 1. 如果当前目录下有 install-adb.sh（macOS / Linux），直接运行 `./install-adb.sh`：
    - 它会依次检查配置好的位置、PATH、常见 SDK 默认目录；
@@ -72,10 +72,14 @@ ADB_PATH=/path/to/adb npx android-log-viewer
    - Linux: ~/Android/Sdk/platform-tools
    - Windows: %LOCALAPPDATA%\Android\Sdk\platform-tools
    如果这些目录都不存在，就新建对应路径下的 platform-tools 目录，然后执行一次 `<解压目录>/adb version` 确认能正常运行。
-5. 验证通过后，重新启动 android-log-viewer（重新执行 `npx android-log-viewer` 或 start.command / start.sh），确认设备列表能正常出现。
+5. 验证通过后，重新启动 quick-logcat（重新执行 `npx quick-logcat` 或 start.command / start.sh），确认设备列表能正常出现。
 ```
 
 ## 常见问题
 
 - **终端提示"无法验证开发者"**：右键点击 `start.command` → 打开，只需首次运行确认一次。
 - **已经装了 adb 但还是提示找不到**：确认 `adb` 命令能在终端里直接跑通（`adb version`），或者用 `ADB_PATH` 环境变量显式指定路径后再启动。
+
+## License
+
+MIT，详见 [LICENSE](LICENSE)。

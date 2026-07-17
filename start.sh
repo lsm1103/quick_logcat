@@ -27,7 +27,7 @@ fi
 
 # ── 端口占用检查（已有实例直接打开浏览器）──────────────────────────────────
 if lsof -i:5174 -sTCP:LISTEN -t >/dev/null 2>&1; then
-  echo "Android Log Viewer 已在运行，正在打开浏览器..."
+  echo "Quick Logcat 已在运行，正在打开浏览器..."
   open "http://localhost:5174"
   exit 0
 fi
@@ -44,7 +44,7 @@ fi
 ) &
 
 echo "========================================"
-echo "  Android Log Viewer"
+echo "  Quick Logcat"
 echo "  http://localhost:5174"
 echo "  关闭此窗口即可停止服务"
 echo "========================================"

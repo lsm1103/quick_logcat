@@ -42,7 +42,7 @@ async function waitForServerThenOpen() {
 
 // 已经有一份在跑：直接打开浏览器，不重复启动
 if (await isServerUp()) {
-  console.log('Android Log Viewer 已在运行，正在打开浏览器...');
+  console.log('Quick Logcat 已在运行，正在打开浏览器...');
   openBrowser(URL);
   process.exit(0);
 }
@@ -61,7 +61,7 @@ if (platform() !== 'win32' && !process.env.ADB_PATH) {
 }
 
 console.log('========================================');
-console.log('  Android Log Viewer');
+console.log('  Quick Logcat');
 console.log(`  ${URL}`);
 console.log('  Ctrl+C 停止服务');
 console.log('========================================');
