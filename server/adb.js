@@ -91,7 +91,9 @@ export async function listDevices() {
 const LINE_RE = /^(?:\d{4}-)?(\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2}\.\d{3,6})\s+(\d+)\s+(\d+)\s+([VDIWEFSA])\s+([^:]*?):\s?(.*)$/;
 
 export function parseLine(line) {
-  const m = line.match(LINE_RE);
+  // Windows 的 adb 输出 CRLF，行尾的 \r 是行终止符，正则里的 `.` 不匹配它，
+  // 会导致整行匹配失败，必须先剥掉。
+  const m = line.replace(/\r+$/, '').match(LINE_RE);
   if (!m) return null;
   return {
     date: m[1],
@@ -152,7 +154,8 @@ export function startLogcat(serial, onLine, onError, onClose) {
 
   child.stdout.on('data', (chunk) => {
     buffer += chunk;
-    const lines = buffer.split('\n');
+    // Windows 的 adb 用 CRLF 行尾，这里统一按 CRLF/LF 切行
+    const lines = buffer.split(/\r?\n/);
     buffer = lines.pop() ?? '';
     for (const raw of lines) {
       if (!raw) continue;
