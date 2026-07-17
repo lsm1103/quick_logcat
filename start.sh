@@ -19,7 +19,7 @@ fi
 NODE="$RUNTIME/node"
 
 # ── adb：配置好的位置 → PATH → 常见 SDK 目录，都找不到就交互式下载安装 ──────────
-ADB_CANDIDATE="$RUNTIME/1/adb"
+ADB_CANDIDATE="$RUNTIME/adb"
 ADB_RESOLVED="$("$DIR/install-adb.sh" "$ADB_CANDIDATE")"
 if [[ -n "$ADB_RESOLVED" ]]; then
   export ADB_PATH="$ADB_RESOLVED"
