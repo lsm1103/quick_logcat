@@ -1,25 +1,22 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
-name: Node.js Package
+# 推送一个 v* 版本 tag 后，自动跑测试并发布到 npm。
+#
+# 前提（只需配置一次）：
+#   在仓库 Settings → Secrets and variables → Actions 里新增一个名为 NPM_TOKEN 的 secret，
+#   值填 npmjs.com 上生成的 Automation 类型 access token。
+#   Automation token 可绕过 2FA / OTP，正是给 CI 自动发布用的。
+#
+# 以后发版就两步：
+#   npm version patch       # 自动改 package.json 版本号、生成 commit 并打 v* tag
+#   git push --follow-tags  # 推送 commit 和 tag，tag 一到就触发本 workflow 自动发布
+name: Publish to npm
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm ci
-      - run: npm test
-
-  publish-npm:
-    needs: build
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,6 +25,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm publish
+      - run: npm test
+      - run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

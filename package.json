@@ -38,6 +38,7 @@
   },
   "scripts": {
     "start": "node bin/cli.js",
+    "test": "node --test",
     "xhs:prepare": "node scripts/prepare-xiaohongshu.mjs"
   },
   "dependencies": {
