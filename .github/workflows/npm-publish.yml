@@ -30,12 +30,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # 注意：这里刻意不设 registry-url。setup-node 一旦设了它，就会生成 .npmrc
+      # 并把 NODE_AUTH_TOKEN 填成占位符 XXXXX-XXXXX-XXXXX-XXXXX，npm 会拿这个
+      # 假 token 去认证（结果是 404），而不会走 Trusted Publishing 的 OIDC 流程。
+      # npm 默认 registry 本来就是 registry.npmjs.org，无需显式指定。
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org/
       # Trusted Publishing 需要 npm >= 11.5.1，setup-node 自带的可能偏旧
       - run: npm install -g npm@latest
+      - run: npm --version
       - run: npm ci
       - run: npm test
       - run: npm publish --access public --provenance
